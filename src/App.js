@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-function App() {
+import GlobalStyle from './styles/global';
+
+import CardWrapper from './Components/CardWrapper';
+import Container from './Components/Container';
+import Card from './Components/Card';
+import Button from './Components/Button.js';
+import Input from './Components/Input';
+import Title from './Components/Title';
+
+const App = () => {
+  const [tempData, setTempData] = useState('');
+  const [city, setCity] = useState('');
+
+  async function handleFetch() {
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=pt_br&appid=92996da95f63bca04162f30ecbb9a844`,
+    );
+
+    setTempData([...tempData, response.data]);
+  }
+
+  function handleInput(e) {
+    setCity(e.target.value);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {' '}
+      <Container>
+        {' '}
+        <Title>Weather App</Title>{' '}
+      </Container>{' '}
+      <Container>
+        {' '}
+        <Input
+          onChange={handleInput}
+          placeholder="Digite o nome da cidade"
+        />{' '}
+        <Button onClick={handleFetch}>Buscar</Button>{' '}
+      </Container>
+      <CardWrapper>{tempData ? <Card weather={tempData} /> : ''}</CardWrapper>
+      <GlobalStyle />
+    </>
   );
-}
+};
 
 export default App;
