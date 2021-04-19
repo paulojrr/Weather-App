@@ -16,7 +16,7 @@ const App = () => {
 
   async function handleFetch() {
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=pt_br&appid=92996da95f63bca04162f30ecbb9a844`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=pt_br&appid=92996da95f63bca04162f30ecbb9a844`,
     );
 
     setTempData([...tempData, response.data]);
@@ -28,18 +28,12 @@ const App = () => {
 
   return (
     <>
-      {' '}
       <Container>
-        {' '}
-        <Title>Weather App</Title>{' '}
-      </Container>{' '}
+        <Title>Weather App</Title>
+      </Container>
       <Container>
-        {' '}
-        <Input
-          onChange={handleInput}
-          placeholder="Digite o nome da cidade"
-        />{' '}
-        <Button onClick={handleFetch}>Buscar</Button>{' '}
+        <Input onChange={handleInput} placeholder="Digite o nome da cidade" />
+        <Button onClick={handleFetch}>Buscar</Button>
       </Container>
       <CardWrapper>{tempData ? <Card weather={tempData} /> : ''}</CardWrapper>
       <GlobalStyle />
