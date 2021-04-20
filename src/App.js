@@ -5,13 +5,13 @@ import GlobalStyle from './styles/global';
 
 import CardWrapper from './Components/CardWrapper';
 import Container from './Components/Container';
-import ContainerColumn from './Components/ContainerColumn';
 import Card from './Components/Card';
 import Button from './Components/Button.js';
 import Input from './Components/Input';
 import InputError from './Components/InputError';
 import Title from './Components/Title';
 import Form from './Components/Form';
+import FormContent from './Components/FormContent';
 
 const App = () => {
   const [weatherData, setWeatherData] = useState('');
@@ -32,13 +32,12 @@ const App = () => {
       );
 
       setWeatherData([...weatherData, response.data]);
+
+      setCity('');
+      setInputError('');
     } catch (err) {
       setInputError('Nome da cidade inválido');
     }
-  }
-
-  function handleInput(e) {
-    setCity(e.target.value);
   }
 
   return (
@@ -48,11 +47,16 @@ const App = () => {
       </Container>
 
       <Form onSubmit={handleFetch}>
-        <ContainerColumn>
-          <Input onChange={handleInput} placeholder="Digite o nome da cidade" />
-          {inputError ? <InputError>{inputError}</InputError> : ''}
-        </ContainerColumn>
-        <Button type="submit">Buscar</Button>
+        <FormContent>
+          <Input
+            value={city}
+            hasError={!!inputError}
+            onChange={(e) => setCity(e.target.value)}
+            placeholder="Digite o nome da cidade"
+          />
+          <Button type="submit">Buscar</Button>
+        </FormContent>
+        {inputError ? <InputError>{inputError}</InputError> : ''}
       </Form>
 
       <CardWrapper>

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Input = styled.input`
   width: 300px;
@@ -7,6 +7,12 @@ const Input = styled.input`
   border-radius: 5px;
   padding: 10px;
   border: 1px solid #fff;
+
+  ${(props) =>
+    props.hasError &&
+    css`
+      border-color: red;
+    `}
 `;
 
 export default Input;

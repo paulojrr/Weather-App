@@ -56,11 +56,10 @@ const Description = styled.span`
 const Card = ({ weather }) => {
   const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/`;
 
-  console.log(weather[0].weather[0]['icon']);
   return (
     <>
-      {weather.map(({ main, name, sys, weather }) => (
-        <CardWrapper>
+      {weather.map(({ main, name, sys, weather }, index) => (
+        <CardWrapper key={index}>
           <CardContent>
             <FlexRow>
               <CityName>{name}</CityName>

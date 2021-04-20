@@ -1,10 +1,22 @@
 import styled from 'styled-components';
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.section`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin-top: 30px;
-  justify-content: center;
+  grid-auto-flow: row;
+
+  @media (max-width: 1280px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 960px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 660px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export default CardWrapper;
