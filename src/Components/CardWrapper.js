@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const CardWrapper = styled.section`
   display: grid;
+  grid-row-start: 1;
   grid-template-columns: repeat(4, 1fr);
   margin-top: 30px;
   grid-auto-flow: row;

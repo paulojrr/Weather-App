@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import GlobalStyle from './styles/global';
@@ -14,9 +14,21 @@ import Form from './Components/Form';
 import FormContent from './Components/FormContent';
 
 const App = () => {
-  const [weatherData, setWeatherData] = useState('');
   const [city, setCity] = useState('');
   const [inputError, setInputError] = useState('');
+  const [weatherData, setWeatherData] = useState(() => {
+    const weatherStorage = localStorage.getItem('@WeatherApp:city');
+
+    if (weatherStorage) {
+      return JSON.parse(weatherStorage);
+    }
+
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('@WeatherApp:city', JSON.stringify(weatherData));
+  }, [weatherData]);
 
   async function handleFetch(event) {
     event.preventDefault();
